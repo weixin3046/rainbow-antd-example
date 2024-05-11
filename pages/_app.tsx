@@ -12,7 +12,7 @@ import {
 } from "@rainbow-me/rainbowkit";
 import { Button, ConfigProvider, ConfigProviderProps } from "antd";
 
-import theme from "./theme/themeConfig";
+import theme from "../theme/themeConfig";
 import {
   coinbaseWallet,
   metaMaskWallet,
