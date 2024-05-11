@@ -2,6 +2,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { Flex, Space } from "antd";
 import Image from "next/image";
 import LanguageSwitcher from "../LanguageSwitcher";
+import Link from "next/link";
 
 const boxStyle: React.CSSProperties = {
   width: "100%",
@@ -22,7 +23,9 @@ export default function Header() {
     <Flex align="center" justify="space-between" style={boxStyle}>
       <div>
         {/* <Image src="" alt="" /> */}
-        <div style={Logo}></div>
+        <Link href={"/"}>
+          <div style={Logo}></div>
+        </Link>
       </div>
 
       <Space align="center">

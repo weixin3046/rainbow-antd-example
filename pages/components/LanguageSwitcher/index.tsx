@@ -1,36 +1,30 @@
-import { Dropdown, Space } from "antd";
+import { Dropdown } from "antd";
 import type { ConfigProviderProps, MenuProps } from "antd";
 import { GlobalOutlined } from "@ant-design/icons";
-import enUS from "antd/locale/en_US";
-import zhCN from "antd/locale/zh_CN";
-import zhTW from "antd/locale/zh_TW";
-import { useContext, useState } from "react";
-import dayjs from "dayjs";
-import { LanguageContext } from "../LanguageProvider";
-// import { useLanguage } from "../../Hooks/useLanguage";
 
-type Locale = ConfigProviderProps["locale"];
+import { useRouter } from "next/router";
 
 const items: MenuProps["items"] = [
   {
-    key: "1",
+    key: "zh-CN",
     label: <div>简体中文</div>,
   },
   {
-    key: "2",
+    key: "en",
     label: <div>English</div>,
   },
-  {
-    key: "3",
-    label: <div>繁体中文</div>,
-  },
+  // {
+  //   key: "3",
+  //   label: <div>繁体中文</div>,
+  // },
 ];
 
 export default function LanguageSwitcher() {
-  //   const [locale, setLocale] = useState<Locale>(enUS);
-  // const { language, toggleLanguage } = useLanguage();
+  const router = useRouter();
   const onClick: MenuProps["onClick"] = ({ key }) => {
-    // toggleLanguage(key);
+    console.log(router);
+    // router.locale = key;
+    router.push(router.pathname, undefined, { locale: key });
   };
 
   return (

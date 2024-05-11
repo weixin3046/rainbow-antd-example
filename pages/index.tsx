@@ -2,8 +2,9 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import type { NextPage } from "next";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import { Button, Space } from "antd";
+import { Button, Calendar, Space } from "antd";
 import Link from "next/link";
+import dayjs from "dayjs";
 
 const Home: NextPage = () => {
   return (
@@ -22,6 +23,7 @@ const Home: NextPage = () => {
           <Button type="primary" block>
             test
           </Button>
+          <Calendar fullscreen={false} value={dayjs()} />
           <Button type="link">
             <Link href={"/test"}>Test Page</Link>
           </Button>
