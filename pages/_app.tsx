@@ -4,31 +4,41 @@ import type { AppProps } from "next/app";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider } from "wagmi";
-import {
-  arbitrum,
-  base,
-  mainnet,
-  optimism,
-  polygon,
-  sepolia,
-} from "wagmi/chains";
+import { bsc, bscTestnet, opBNB, opBNBTestnet } from "wagmi/chains";
 import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { ConfigProvider } from "antd";
 
 import theme from "./theme/themeConfig";
+import {
+  coinbaseWallet,
+  metaMaskWallet,
+  rainbowWallet,
+  walletConnectWallet,
+} from "@rainbow-me/rainbowkit/wallets";
 
 const config = getDefaultConfig({
   appName: "RainbowKit App",
   projectId: "2724d308a0ea7acb1238664e287e8e9b",
   chains: [
-    mainnet,
-    polygon,
-    optimism,
-    arbitrum,
-    base,
-    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true" ? [sepolia] : []),
+    bsc,
+    bscTestnet,
+    opBNB,
+    opBNBTestnet,
+
+    // ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true" ? [sepolia] : []),
   ],
   ssr: true,
+  wallets: [
+    {
+      groupName: "Recommended",
+      wallets: [metaMaskWallet, walletConnectWallet],
+    },
+
+    {
+      groupName: "Others",
+      wallets: [rainbowWallet, coinbaseWallet],
+    },
+  ],
 });
 
 const client = new QueryClient();
