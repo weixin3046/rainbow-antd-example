@@ -5,8 +5,12 @@ import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider } from "wagmi";
 import { bsc, bscTestnet, opBNB, opBNBTestnet } from "wagmi/chains";
-import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
-import { ConfigProvider } from "antd";
+import {
+  darkTheme,
+  getDefaultConfig,
+  RainbowKitProvider,
+} from "@rainbow-me/rainbowkit";
+import { Button, ConfigProvider, ConfigProviderProps } from "antd";
 
 import theme from "./theme/themeConfig";
 import {
@@ -15,6 +19,15 @@ import {
   rainbowWallet,
   walletConnectWallet,
 } from "@rainbow-me/rainbowkit/wallets";
+import Layout from "./components/Layout";
+
+// language
+import enUS from "antd/locale/en_US";
+import zhCN from "antd/locale/zh_CN";
+import { RainbowKitProviderProps } from "@rainbow-me/rainbowkit/dist/components/RainbowKitProvider/RainbowKitProvider";
+// import { useRouter } from "next/router";
+
+type locale = RainbowKitProviderProps["locale"];
 
 const config = getDefaultConfig({
   appName: "RainbowKit App",
@@ -44,7 +57,26 @@ const config = getDefaultConfig({
 const client = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
+  // const { locale } = useRouter() as { locale: locale };
+  // console.log(locale);
   return (
+    // <ConfigProvider
+    //   theme={theme}
+    //   // locale={locale === "en" ? enUS : zhCN}
+    // >
+    //   <WagmiProvider config={config}>
+    //     <QueryClientProvider client={client}>
+    //       <RainbowKitProvider
+    //       // locale={locale}
+    //       // theme={darkTheme()}
+    //       >
+    //         <Layout>
+    //           <Component {...pageProps} />
+    //         </Layout>
+    //       </RainbowKitProvider>
+    //     </QueryClientProvider>
+    //   </WagmiProvider>
+    // </ConfigProvider>
     <ConfigProvider theme={theme}>
       <WagmiProvider config={config}>
         <QueryClientProvider client={client}>
