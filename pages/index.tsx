@@ -19,7 +19,6 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <Space direction="vertical">
-          <ConnectButton />
           <Button type="primary" block>
             test
           </Button>
