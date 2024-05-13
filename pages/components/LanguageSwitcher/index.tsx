@@ -1,34 +1,24 @@
 import { Dropdown } from "antd";
-import type { ConfigProviderProps, MenuProps } from "antd";
+import type { MenuProps } from "antd";
 import { GlobalOutlined } from "@ant-design/icons";
-
-import { useRouter } from "next/router";
-
-const items: MenuProps["items"] = [
-  {
-    key: "zh-CN",
-    label: <div>简体中文</div>,
-  },
-  {
-    key: "en",
-    label: <div>English</div>,
-  },
-  // {
-  //   key: "3",
-  //   label: <div>繁体中文</div>,
-  // },
-];
+import { useTranslation } from "next-i18next";
 
 export default function LanguageSwitcher() {
-  const router = useRouter();
-  const onClick: MenuProps["onClick"] = ({ key }) => {
-    console.log(router);
-    // router.locale = key;
-    router.push(router.pathname, undefined, { locale: key });
-  };
+  const { i18n } = useTranslation("common");
+
+  const items: MenuProps["items"] = [
+    {
+      key: "zh-CN",
+      label: <div onClick={() => i18n.changeLanguage("zh")}>简体中文</div>,
+    },
+    {
+      key: "en",
+      label: <div onClick={() => i18n.changeLanguage("en")}>English</div>,
+    },
+  ];
 
   return (
-    <Dropdown menu={{ items, onClick }}>
+    <Dropdown menu={{ items }}>
       <div>
         <GlobalOutlined style={{ fontSize: 25 }} />
       </div>

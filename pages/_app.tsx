@@ -10,7 +10,7 @@ import {
   getDefaultConfig,
   RainbowKitProvider,
 } from "@rainbow-me/rainbowkit";
-import { Button, ConfigProvider, ConfigProviderProps } from "antd";
+import { ConfigProvider } from "antd";
 
 import theme from "../theme/themeConfig";
 import {
@@ -26,11 +26,12 @@ import "dayjs/locale/zh-cn";
 import enUS from "antd/locale/en_US";
 import zhCN from "antd/locale/zh_CN";
 import { RainbowKitProviderProps } from "@rainbow-me/rainbowkit/dist/components/RainbowKitProvider/RainbowKitProvider";
-import { useRouter } from "next/router";
 import { useEffect } from "react";
 import dayjs from "dayjs";
-
+import { appWithTranslation } from "next-i18next";
+import nextI18nConfig from "../next-i18next.config.mjs";
 type locale = RainbowKitProviderProps["locale"];
+import { useTranslation } from "next-i18next";
 
 const config = getDefaultConfig({
   appName: "RainbowKit App",
@@ -60,17 +61,15 @@ const config = getDefaultConfig({
 const client = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const { locale } = useRouter() as { locale: locale };
-  useEffect(() => {
-    console.log();
-    dayjs.locale(locale);
-  }, [locale]);
+  const { i18n } = useTranslation("common");
+  const { language } = i18n;
+  dayjs.locale(language);
   return (
-    <ConfigProvider theme={theme} locale={locale === "en" ? enUS : zhCN}>
+    <ConfigProvider theme={theme} locale={language === "en" ? enUS : zhCN}>
       <WagmiProvider config={config}>
         <QueryClientProvider client={client}>
           <RainbowKitProvider
-            locale={locale}
+            locale={language as locale}
             // theme={darkTheme()}
           >
             <Layout>
@@ -83,4 +82,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp;
+export default appWithTranslation(MyApp, nextI18nConfig);

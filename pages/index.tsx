@@ -1,10 +1,23 @@
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 import type { NextPage } from "next";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { Button, Calendar, Space } from "antd";
 import Link from "next/link";
 import dayjs from "dayjs";
+
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import nextI18nConfig from "../next-i18next.config.mjs";
+
+export const getServerSideProps = async ({ locale }: { locale: string }) => ({
+  props: {
+    ...(await serverSideTranslations(
+      locale,
+      ["common"],
+      nextI18nConfig,
+      nextI18nConfig.i18n.locales
+    )),
+  },
+});
 
 const Home: NextPage = () => {
   return (
@@ -21,12 +34,9 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <Space direction="vertical">
           <Button type="primary" block>
-            test
+            <Link href={"/test"}>test</Link>
           </Button>
           <Calendar fullscreen={false} value={dayjs()} />
-          <Button type="link">
-            <Link href={"/test"}>Test Page</Link>
-          </Button>
         </Space>
         <h1 className={styles.title}>
           Welcome to <a href="">RainbowKit</a> + <a href="">wagmi</a> +{" "}

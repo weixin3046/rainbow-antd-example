@@ -2,6 +2,7 @@ import { Button, Flex, Modal, Space, Table, Typography } from "antd";
 // import Image from "next/image";
 import type { TableProps } from "antd";
 import { useState } from "react";
+import { useTranslation } from "next-i18next";
 
 const { Title, Text } = Typography;
 interface DataType {
@@ -87,7 +88,7 @@ const data: DataType[] = [
 export default function Page() {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const { t } = useTranslation("common");
   const showModal = () => {
     setOpen(true);
   };
@@ -105,6 +106,7 @@ export default function Page() {
   return (
     <>
       <Typography>
+        <Title>{t("title")}</Title>
         <Button type="primary" onClick={showModal}>
           Open Modal with customized footer
         </Button>
