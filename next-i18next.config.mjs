@@ -8,6 +8,6 @@ const config = {
     locales: ["en", "zh-CN"],
     defaultLocale: "zh-CN",
   },
-  localePath: path.resolve("./public/locales"),
+  // localePath: path.resolve("./public/locales"),
 };
 export default config;

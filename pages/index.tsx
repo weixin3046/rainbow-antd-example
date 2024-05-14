@@ -5,20 +5,6 @@ import { Button, Calendar, Space } from "antd";
 import Link from "next/link";
 import dayjs from "dayjs";
 
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import nextI18nConfig from "../next-i18next.config.mjs";
-
-export const getServerSideProps = async ({ locale }: { locale: string }) => ({
-  props: {
-    ...(await serverSideTranslations(
-      locale,
-      ["common"],
-      nextI18nConfig,
-      nextI18nConfig.i18n.locales
-    )),
-  },
-});
-
 const Home: NextPage = () => {
   return (
     <div className={styles.container}>
@@ -36,6 +22,7 @@ const Home: NextPage = () => {
           <Button type="primary" block>
             <Link href={"/test"}>test</Link>
           </Button>
+          <Link href={"/test"}>test</Link>
           <Calendar fullscreen={false} value={dayjs()} />
         </Space>
         <h1 className={styles.title}>

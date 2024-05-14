@@ -4,34 +4,25 @@ import Image from "next/image";
 import LanguageSwitcher from "../LanguageSwitcher";
 import Link from "next/link";
 
-const boxStyle: React.CSSProperties = {
-  width: "100%",
-  height: 64,
-  borderRadius: 6,
-};
-
-const Logo = {
-  width: " 30px",
-  height: "30px",
-
-  background:
-    "radial-gradient(50% 50% at 50% 50%, rgba(254, 231, 185, 0) 0%, #DBECFF 100%)",
-};
-
 export default function Header() {
   return (
-    <Flex align="center" justify="space-between" style={boxStyle}>
-      <div>
-        {/* <Image src="" alt="" /> */}
-        <Link href={"/"}>
-          <div style={Logo}></div>
-        </Link>
-      </div>
+    <Flex align="center" gap={6} justify="space-between" vertical={false}>
+      {/* <Image src="" alt="" /> */}
+      <Link href={"/"}>
+        <Flex align="center" justify="space-between" gap={6}>
+          <Image src={"/logo.png"} alt="logo" width={56} height={56} />
+          <div>Safe Wallet</div>
+        </Flex>
+      </Link>
 
-      <Space align="center">
-        <ConnectButton />
-        <LanguageSwitcher />
-      </Space>
+      <Flex flex={1} align="center" gap={6} justify="flex-end">
+        <div>
+          <ConnectButton chainStatus="none" />
+        </div>
+        <div>
+          <LanguageSwitcher />
+        </div>
+      </Flex>
     </Flex>
   );
 }

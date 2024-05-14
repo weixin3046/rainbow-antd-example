@@ -7,10 +7,9 @@ const { Header: AntdHeader, Footer, Content } = AntdLayout;
 const headerStyle: React.CSSProperties = {
   textAlign: "center",
   color: "#fff",
-  height: 64,
+  height: 88,
   paddingInline: 20,
-  lineHeight: "64px",
-  backgroundColor: "#4096ff",
+  lineHeight: "88px",
 };
 
 const footerStyle: React.CSSProperties = {
@@ -24,11 +23,11 @@ const contentStyle: React.CSSProperties = {
   minHeight: 120,
   lineHeight: "120px",
   color: "#fff",
-  backgroundColor: "#0958d9",
+  backgroundColor: "#fff",
 };
 
 const layoutStyle = {
-  borderRadius: 8,
+  // borderRadius: 8,
   overflow: "hidden",
   // width: "600px",
   maxWidth: "600px",
@@ -41,7 +40,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         <Header />
       </AntdHeader>
       <Content style={contentStyle}>{children}</Content>
-      <Footer style={footerStyle}>Footer</Footer>
+      {/* <Footer style={footerStyle}>Footer</Footer> */}
     </AntdLayout>
   );
 }
