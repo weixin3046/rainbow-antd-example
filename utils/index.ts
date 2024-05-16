@@ -1,4 +1,6 @@
 import { isAddress } from "viem";
+import { config } from "../config";
+import { getChainId } from "@wagmi/core";
 
 export function shortenAddress(
   address = "",
@@ -44,4 +46,20 @@ export function ellipseMiddle(
   return `${target.slice(0, charsStart)}...${target.slice(
     target.length - charsEnd
   )}`;
+}
+
+export function getSymbol() {
+  const chainId = getChainId(config);
+  let symbol;
+  switch (chainId) {
+    case 56:
+    case 97:
+    case 204:
+    case 5611:
+      symbol = "BNB";
+      break;
+    default:
+      symbol = "Unknown";
+  }
+  return symbol;
 }

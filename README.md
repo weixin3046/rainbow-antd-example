@@ -1,3 +1,9 @@
+###contract
+
+```
+0x7A0b89D1037C281E50FA6B7cE972dDE6a1C10c1d
+```
+
 This is a [RainbowKit](https://rainbowkit.com) + [wagmi](https://wagmi.sh) + [Next.js](https://nextjs.org/) project bootstrapped with [`create-rainbowkit`](/packages/create-rainbowkit).
 
 ## Getting Started
