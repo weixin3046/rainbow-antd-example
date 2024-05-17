@@ -1,5 +1,3 @@
-import path from "path";
-
 /** @type {import("next-i18next").UserConfig} */
 const config = {
   debug: process.env.NODE_ENV === "development",

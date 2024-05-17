@@ -1,0 +1,35 @@
+.signer_list {
+  padding: 1rem;
+  background-color: #f8faff;
+  color: #333333;
+}
+
+.customInput {
+  background: #ffffff;
+  border-radius: 25px;
+  height: 46px;
+  display: flex;
+  padding: 9px 16px;
+  align-items: center;
+}
+.customInput .address {
+  font-size: 10px;
+  word-wrap: break-word;
+  word-break: break-all;
+  text-align: left;
+}
+
+.preview_title {
+  font-weight: 600;
+  font-size: 17px;
+  padding-bottom: 12px;
+}
+
+.preview_box {
+  background: #eef1f8;
+  border-radius: 12px;
+  padding: 17px;
+}
+.preview_box_row {
+  padding-bottom: 12px;
+}

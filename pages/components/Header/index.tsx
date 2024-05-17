@@ -7,7 +7,6 @@ import Link from "next/link";
 export default function Header() {
   return (
     <Flex align="center" gap={6} justify="space-between" vertical={false}>
-      {/* <Image src="" alt="" /> */}
       <Link href={"/"}>
         <Flex align="center" justify="space-between" gap={6}>
           <Image src={"/logo.png"} alt="logo" width={56} height={56} />

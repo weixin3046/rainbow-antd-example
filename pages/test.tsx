@@ -15,7 +15,6 @@ import {
 import Image from "next/image";
 import type { TableProps } from "antd";
 import { useMemo, useState } from "react";
-import { useTranslation } from "next-i18next";
 import Drawer from "./components/Drawer";
 import { LeftOutlined } from "@ant-design/icons";
 import { shortenAddress } from "../utils";
@@ -47,6 +46,7 @@ import { config, tokenList } from "../config";
 import { simulateContract, writeContract, getToken } from "@wagmi/core";
 import { abi } from "../abi/abi";
 import ActivityTable from "./components/Activity";
+import Owners from "./components/Owners";
 
 const { Option } = Select;
 const { Title, Text, Paragraph } = Typography;
@@ -64,6 +64,7 @@ export default function Page() {
   const [loading, setLoading] = useState(false);
   const [drawerBack, setDrawerBack] = useState(false);
   const [form] = Form.useForm();
+  const [previewModal, setPreviewModal] = useState(false);
   const [dataForm, setDataForm] = useState({
     address: "",
     amount: "0",
@@ -75,13 +76,10 @@ export default function Page() {
   const showModal = () => {
     setOpen(true);
   };
-  const handleOk = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setOpen(false);
-    }, 3000);
+  const showPreview = () => {
+    setPreviewModal(true);
   };
+
   const onFinish = async (values: any) => {
     setDataForm(values);
     setLoading(true);
@@ -118,10 +116,52 @@ export default function Page() {
   const onClose = () => {
     setOpen(false);
   };
+  // confirmTransaction 确认提案
 
-  const handleCancel = () => {
-    setOpen(false);
+  //revokeConfirmation 取消提案
+  const revokeConfirmation = async ({ id }: { id: number }) => {
+    // messageApi.open({
+    //   key,
+    //   type: 'loading',
+    //   content: 'Loading...',
+    // });
+    try {
+      const { request } = await simulateContract(config, {
+        abi: MultiSigBank.abi,
+        address: MultiSigBank.address as Address,
+        functionName: "revokeConfirmation",
+        args: [id],
+      });
+      const hash = await writeContract(config, request);
+      console.log(hash);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  //executeTransaction 执行提案
+  const executeTransaction = async ({ id }: { id: number }) => {
+    // messageApi.open({
+    //   key,
+    //   type: 'loading',
+    //   content: 'Loading...',
+    // });
+    try {
+      const { request } = await simulateContract(config, {
+        abi: MultiSigBank.abi,
+        address: MultiSigBank.address as Address,
+        functionName: "executeTransaction",
+        args: [id],
+      });
+      const hash = await writeContract(config, request);
+      console.log(hash);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // 提案发布者废弃提案：discardTransaction
+
   return (
     <div
       style={{
@@ -191,10 +231,26 @@ export default function Page() {
           <Button onClick={showModal} type="primary" block shape="round">
             send
           </Button>
-          <Button onClick={showModal} block shape="round">
+          <Button onClick={showPreview} block shape="round">
             Safe Account
           </Button>
         </Space>
+        {/* <Button
+          block
+          onClick={() => revokeConfirmation({ id: 0 })}
+          shape="round"
+        >
+          取消 Test
+        </Button>
+        <Button
+          block
+          onClick={() => executeTransaction({ id: 1 })}
+          shape="round"
+        >
+          执行 Test
+        </Button> */}
+
+        <Owners open={previewModal} onClose={() => setPreviewModal(false)} />
 
         <Drawer
           title={<div style={{ textAlign: "center" }}>Send</div>}

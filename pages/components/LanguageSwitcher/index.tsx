@@ -1,15 +1,11 @@
 import { Dropdown } from "antd";
 import type { MenuProps } from "antd";
 import { GlobalOutlined } from "@ant-design/icons";
-import { useTranslation } from "next-i18next";
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 export default function LanguageSwitcher() {
-  const { i18n } = useTranslation("common");
   const router = useRouter();
   const { pathname, asPath, query } = router;
-  console.log(router);
 
   const items: MenuProps["items"] = [
     {

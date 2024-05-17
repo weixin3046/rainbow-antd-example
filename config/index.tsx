@@ -53,3 +53,5 @@ export const tokenList = [
     decimals: 6,
   },
 ];
+
+export const MultiSigBankAddress = "0xCaFCA685891A2CeFbf78F89BeA3EaA9B096d377B";

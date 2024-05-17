@@ -5,7 +5,7 @@ import type { TableProps } from "antd";
 import { useEffect, useMemo, useState } from "react";
 import { shortenAddress } from "../../../utils";
 import { formatUnits, fromHex } from "viem";
-import { tokenList } from "../../../config";
+import { MultiSigBankAddress, tokenList } from "../../../config";
 import CloseConfirmTransaction from "../CloseConfirmTransaction";
 
 const { Title, Text, Paragraph } = Typography;
@@ -30,6 +30,19 @@ const ActivityTable = ({ address }: { address: `0x${string}` | undefined }) => {
     current: 1,
     pageSize: BigInt(10),
   });
+  const { data: ownerList } = useReadContract({
+    abi: MultiSigBank,
+    address: MultiSigBankAddress,
+    functionName: "getOwners",
+  });
+  const [isExecute, setIsExecute] = useState(false);
+  useEffect(() => {
+    if ((ownerList as any[])?.includes(address)) {
+      setIsExecute(true);
+    } else {
+      setIsExecute(false);
+    }
+  }, [ownerList, address]);
   const {
     data: ActivityData,
     error,
@@ -38,7 +51,7 @@ const ActivityTable = ({ address }: { address: `0x${string}` | undefined }) => {
   } = useReadContract({
     abi: MultiSigBank,
     functionName: "getTransactions",
-    address: `0xCaFCA685891A2CeFbf78F89BeA3EaA9B096d377B`,
+    address: MultiSigBankAddress,
     args: [pagination.pageSize, address],
   });
   console.log(ActivityData);
@@ -71,12 +84,16 @@ const ActivityTable = ({ address }: { address: `0x${string}` | undefined }) => {
       dataIndex: "execute",
       key: "execute",
       align: "right",
+      hidden: !isExecute,
       render: (_, data, index) => (
         <Space size="middle">
-          {ActivityData[1][index] ? (
+          {(ActivityData as DataType[][])[1][index] ? (
             <div>View on explorer</div>
           ) : (
-            <CloseConfirmTransaction data={data} id={ActivityData[3][index]} />
+            <CloseConfirmTransaction
+              data={data}
+              id={(ActivityData as bigint[][])[3][index]}
+            />
           )}
         </Space>
       ),
@@ -89,7 +106,7 @@ const ActivityTable = ({ address }: { address: `0x${string}` | undefined }) => {
         columns={columns}
         // size="small"
         pagination={false}
-        dataSource={ActivityData && ActivityData[0]}
+        dataSource={(ActivityData as DataType[][])[0]}
         loading={isLoading}
       />
     </>
