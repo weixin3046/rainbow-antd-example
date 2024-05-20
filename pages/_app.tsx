@@ -17,7 +17,6 @@ import enUS from "antd/locale/en_US";
 import zhCN from "antd/locale/zh_CN";
 import { RainbowKitProviderProps } from "@rainbow-me/rainbowkit/dist/components/RainbowKitProvider/RainbowKitProvider";
 import dayjs from "dayjs";
-type locale = RainbowKitProviderProps["locale"];
 import { useRouter } from "next/router";
 import { config } from "../config";
 

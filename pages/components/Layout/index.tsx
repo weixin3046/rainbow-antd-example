@@ -12,16 +12,9 @@ const headerStyle: React.CSSProperties = {
   lineHeight: "88px",
 };
 
-const footerStyle: React.CSSProperties = {
-  textAlign: "center",
-  color: "#fff",
-  backgroundColor: "#4096ff",
-};
-
 const contentStyle: React.CSSProperties = {
   textAlign: "center",
-  minHeight: 120,
-  // lineHeight: "120px",
+  minHeight: "100vh",
   color: "#fff",
   backgroundColor: "#fff",
 };

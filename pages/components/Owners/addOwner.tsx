@@ -23,21 +23,20 @@ const AddOwner: React.FC = () => {
     address: MultiSigBankAddress,
     functionName: "getOwners",
   });
-  console.log(data);
   const onSubmit = async () => {
     setLoading(true);
     const description = toHex("addOwner", { size: 32 });
     const data = encodeFunctionData({
       abi: MultiSigBank,
       functionName: "addOwner",
-      args: [newAddress],
+      args: [newAddress as `0x${string}`],
     });
     try {
       const { request } = await simulateContract(config, {
         abi: MultiSigBank,
         address: MultiSigBankAddress,
         functionName: "submitTransaction",
-        args: [address, 0, data, description],
+        args: [address as `0x${string}`, BigInt(0), data, description],
       });
       const hash = await writeContract(config, request);
       console.log(hash);
@@ -49,7 +48,7 @@ const AddOwner: React.FC = () => {
     }
   };
 
-  const onRemove = async (list: string) => {
+  const onRemove = async (list: `0x${string}`) => {
     messageApi.open({
       type: "loading",
       content: "removeOwner ...",
@@ -66,7 +65,7 @@ const AddOwner: React.FC = () => {
         abi: MultiSigBank,
         address: MultiSigBankAddress,
         functionName: "submitTransaction",
-        args: [address, 0, data, description],
+        args: [address as `0x${string}`, BigInt(0), data, description],
       });
       const hash = await writeContract(config, request);
       console.log(hash);
@@ -85,7 +84,7 @@ const AddOwner: React.FC = () => {
       <div className={styles.signer_list}>
         <Space size={12} direction="vertical">
           {isLoading && "loading"}
-          {(data as string[])?.map((item, index) => (
+          {data?.map((item, index) => (
             <Row align={"middle"} key={item}>
               <Col span={2}>
                 <MinusCircleFilled

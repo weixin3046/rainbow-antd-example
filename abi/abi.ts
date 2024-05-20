@@ -730,4 +730,4 @@ export const MultiSigBank = [
     stateMutability: "payable",
     type: "receive",
   },
-];
+] as const;
